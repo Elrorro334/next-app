@@ -24,9 +24,9 @@ export default function Home() {
       <section className="mx-auto flex min-h-screen w-full max-w-7xl flex-col gap-16 px-6 py-8 lg:px-10 xl:flex-row xl:items-center xl:py-12">
         <div className="flex flex-1 flex-col gap-10">
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 1, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
+            transition={{ duration: 0.55, ease: "easeOut" }}
             className="max-w-3xl"
           >
             <div className="inline-flex items-center gap-2 rounded-full border border-slate-700/80 bg-slate-900/70 px-4 py-2 text-xs font-medium uppercase tracking-[0.25em] text-slate-300 shadow-lg shadow-slate-950/30 backdrop-blur">
@@ -72,7 +72,7 @@ export default function Home() {
             {features.map((feature, index) => (
               <motion.article
                 key={feature.title}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 1, y: 12 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true, margin: "-60px" }}

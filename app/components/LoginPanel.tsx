@@ -63,7 +63,7 @@ export default function LoginPanel() {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 26, scale: 0.98 }}
+      initial={{ opacity: 1, y: 14, scale: 0.99 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
       className="w-full max-w-xl rounded-3xl border border-slate-800 bg-slate-950/85 p-8 shadow-2xl shadow-slate-950/40 backdrop-blur-xl sm:p-10"

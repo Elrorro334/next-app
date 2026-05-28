@@ -1,46 +1,95 @@
-import Link from 'next/link';
+"use client";
+
+import { motion } from "framer-motion";
+import LoginPanel from "./components/LoginPanel";
 
 export default function Home() {
+  const features = [
+    {
+      title: "Control transaccional aislado",
+      desc: "Cada evaluación opera en un flujo independiente para reducir riesgo operativo y mantener integridad de la información.",
+    },
+    {
+      title: "Guardado asíncrono",
+      desc: "El motor persiste la evidencia aun ante interrupciones de red, asegurando continuidad y 0% data loss.",
+    },
+    {
+      title: "Auditoría inmutable",
+      desc: "Bitácoras selladas para trazabilidad legal, revisión forense y cumplimiento normativo sin ambigüedad.",
+    },
+  ];
+
   return (
-    <div className="min-h-screen bg-white text-slate-900 font-sans">
-      <header className="border-b border-slate-200">
-        <nav className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-          <div className="text-2xl font-bold text-slate-950">EVALUMA</div>
-          <Link href="/login" className="px-5 py-2 bg-slate-900 text-white rounded hover:bg-slate-800 transition">
-            Acceder
-          </Link>
-        </nav>
-      </header>
-
-      <main className="max-w-7xl mx-auto px-6 py-20">
-        <section className="text-center mb-24">
-          <h1 className="text-5xl font-extrabold text-slate-950 mb-6">
-            Portal Corporativo Transaccional B2B
-          </h1>
-          <p className="text-xl text-slate-600 max-w-2xl mx-auto">
-            Solución robusta para sectores altamente regulados. Seguridad y cumplimiento garantizados en cada transacción.
-          </p>
-        </section>
-
-        <section className="grid md:grid-cols-2 gap-12">
-          <div className="p-8 border border-slate-200 rounded-lg">
-            <h2 className="text-2xl font-semibold text-slate-950 mb-4">0% pérdida de datos ante fallos de red</h2>
-            <p className="text-slate-600">
-              Arquitectura resiliente diseñada para asegurar la integridad de su información crítica bajo cualquier condición de red.
+    <main className="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(37,99,235,0.16),_transparent_34%),linear-gradient(180deg,#020617_0%,#0f172a_46%,#020617_100%)] text-slate-100">
+      <section className="mx-auto flex min-h-screen w-full max-w-7xl flex-col gap-16 px-6 py-8 lg:px-10 xl:flex-row xl:items-center xl:py-12">
+        <div className="flex flex-1 flex-col gap-10">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className="max-w-3xl"
+          >
+            <div className="inline-flex items-center gap-2 rounded-full border border-slate-700/80 bg-slate-900/70 px-4 py-2 text-xs font-medium uppercase tracking-[0.25em] text-slate-300 shadow-lg shadow-slate-950/30 backdrop-blur">
+              Portal corporativo transaccional B2B
+            </div>
+            <h1 className="mt-6 text-5xl font-semibold tracking-tight text-white sm:text-6xl lg:text-7xl">
+              Blindaje normativo con resiliencia técnica para cada evaluación.
+            </h1>
+            <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300 sm:text-xl">
+              EVALUMA protege la continuidad operativa con un motor asíncrono, control transaccional aislado y bitácoras inmutables que refuerzan la trazabilidad legal en entornos corporativos exigentes.
             </p>
-          </div>
-          <div className="p-8 border border-slate-200 rounded-lg">
-            <h2 className="text-2xl font-semibold text-slate-950 mb-4">Trazabilidad legal con auditoría inmutable</h2>
-            <p className="text-slate-600">
-              Cumplimiento normativo estricto con registros inalterables y trazabilidad completa de cada operación realizada.
-            </p>
-          </div>
-        </section>
-      </main>
+            <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+              <a
+                href="#login"
+                className="inline-flex items-center justify-center rounded-xl bg-blue-500 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-500/25 transition hover:bg-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-300"
+              >
+                Ingresar al portal
+              </a>
+              <a
+                href="#features"
+                className="inline-flex items-center justify-center rounded-xl border border-slate-700 bg-slate-900/60 px-6 py-3 text-sm font-semibold text-slate-200 transition hover:border-slate-500 hover:bg-slate-900"
+              >
+                Ver capacidades clave
+              </a>
+            </div>
+            <dl className="mt-10 grid max-w-2xl grid-cols-1 gap-4 sm:grid-cols-3">
+              <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-4 backdrop-blur">
+                <dt className="text-sm text-slate-400">Data loss</dt>
+                <dd className="mt-2 text-2xl font-semibold text-white">0%</dd>
+              </div>
+              <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-4 backdrop-blur">
+                <dt className="text-sm text-slate-400">Auditoría</dt>
+                <dd className="mt-2 text-2xl font-semibold text-white">Inmutable</dd>
+              </div>
+              <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-4 backdrop-blur">
+                <dt className="text-sm text-slate-400">Operación</dt>
+                <dd className="mt-2 text-2xl font-semibold text-white">Asíncrona</dd>
+              </div>
+            </dl>
+          </motion.div>
 
-      <footer className="border-t border-slate-200 py-8 text-center text-slate-500 text-sm">
-        &copy; 2026 EVALUMA. Todos los derechos reservados.
-      </footer>
-    </div>
+          <section id="features" className="grid gap-4 md:grid-cols-3">
+            {features.map((feature, index) => (
+              <motion.article
+                key={feature.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true, margin: "-60px" }}
+                className="group rounded-2xl border border-slate-800 bg-slate-900/70 p-6 shadow-xl shadow-slate-950/25 backdrop-blur transition hover:border-blue-500/40 hover:bg-slate-900"
+              >
+                <div className="mb-5 h-11 w-11 rounded-xl bg-blue-500/15 ring-1 ring-inset ring-blue-500/30" />
+                <h2 className="text-xl font-semibold text-white">{feature.title}</h2>
+                <p className="mt-3 leading-7 text-slate-300">{feature.desc}</p>
+              </motion.article>
+            ))}
+          </section>
+        </div>
+
+        <div id="login" className="flex w-full flex-1 justify-center xl:max-w-xl">
+          <LoginPanel />
+        </div>
+      </section>
+    </main>
   );
 }

@@ -2,8 +2,10 @@ import LoginPanel from "../components/LoginPanel";
 
 export default function LoginPage() {
   return (
-    <div className="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(37,99,235,0.16),_transparent_34%),linear-gradient(180deg,#020617_0%,#0f172a_46%,#020617_100%)] flex items-center justify-center p-6">
-      <LoginPanel />
+    <div className="min-h-screen bg-[#F3F7F9] px-6 py-8">
+      <div className="mx-auto flex min-h-[calc(100vh-4rem)] w-full max-w-7xl items-center justify-center">
+        <LoginPanel />
+      </div>
     </div>
   );
 }

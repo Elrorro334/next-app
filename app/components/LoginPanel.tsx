@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 export default function LoginPanel() {
   const [email, setEmail] = useState("");
@@ -66,13 +67,20 @@ export default function LoginPanel() {
       initial={{ opacity: 1, y: 14, scale: 0.99 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className="w-full max-w-xl rounded-3xl border border-slate-800 bg-slate-950/85 p-8 shadow-2xl shadow-slate-950/40 backdrop-blur-xl sm:p-10"
+      className="w-full max-w-xl rounded-3xl border border-[#C3E0E6] bg-white p-8 shadow-2xl shadow-slate-200/70 backdrop-blur-xl sm:p-10"
     >
+      <div className="mb-8 flex items-center gap-4">
+        <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-[#C3E0E6] bg-[#F3F7F9]">
+          <Image src="/sources/logo.png" alt="Logo EVALUMA" width={42} height={42} />
+        </div>
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#8EACB4]">Acceso seguro</p>
+          <h2 className="mt-2 text-3xl font-semibold tracking-tight text-[#194B64]">Portal de autenticación EVALUMA</h2>
+        </div>
+      </div>
       <div className="mb-8">
-        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-blue-300">Acceso seguro</p>
-        <h2 className="mt-3 text-3xl font-semibold tracking-tight text-white">Portal de autenticación EVALUMA</h2>
-        <p className="mt-3 max-w-lg text-sm leading-6 text-slate-400">
-          Accede mediante SSO corporativo o utiliza tu correo institucional con respaldo transaccional y validación segura.
+        <p className="max-w-lg text-sm leading-6 text-[#5D7E88]">
+          Inicia sesión con SSO corporativo o con tu correo institucional para acceder al portal documentado en la propuesta escrita.
         </p>
       </div>
 
@@ -80,17 +88,17 @@ export default function LoginPanel() {
         type="button"
         onClick={handleSsoLogin}
         disabled={loading || ssoLoading}
-        className="inline-flex w-full items-center justify-center rounded-2xl bg-blue-500 px-4 py-3.5 text-sm font-semibold text-white shadow-lg shadow-blue-500/20 transition hover:bg-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-300 disabled:cursor-not-allowed disabled:opacity-60"
+        className="inline-flex w-full items-center justify-center rounded-2xl bg-[#194B64] px-4 py-3.5 text-sm font-semibold text-white shadow-lg shadow-[#194B64]/20 transition hover:bg-[#0f3b51] focus:outline-none focus:ring-2 focus:ring-[#13B4CE]/30 disabled:cursor-not-allowed disabled:opacity-60"
       >
         {ssoLoading ? "Redirigiendo a SSO..." : "Ingresar con SSO Corporativo"}
       </button>
 
       <div className="relative my-8">
         <div className="absolute inset-0 flex items-center">
-          <div className="w-full border-t border-slate-800" />
+          <div className="w-full border-t border-[#C3E0E6]" />
         </div>
-        <div className="relative flex justify-center text-xs uppercase tracking-[0.28em] text-slate-500">
-          <span className="bg-slate-950 px-3">o continuar con</span>
+        <div className="relative flex justify-center text-xs uppercase tracking-[0.28em] text-[#8EACB4]">
+          <span className="bg-white px-3">o continuar con</span>
         </div>
       </div>
 
@@ -100,7 +108,7 @@ export default function LoginPanel() {
           placeholder="Correo corporativo"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="w-full rounded-2xl border border-slate-800 bg-slate-900/80 px-4 py-3.5 text-sm text-white outline-none transition placeholder:text-slate-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 disabled:cursor-not-allowed disabled:opacity-60"
+          className="w-full rounded-2xl border border-[#C3E0E6] bg-[#F3F7F9] px-4 py-3.5 text-sm text-[#194B64] outline-none transition placeholder:text-[#8EACB4] focus:border-[#13B4CE] focus:ring-2 focus:ring-[#13B4CE]/20 disabled:cursor-not-allowed disabled:opacity-60"
           disabled={loading}
           required
         />
@@ -109,19 +117,19 @@ export default function LoginPanel() {
           placeholder="Contraseña"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="w-full rounded-2xl border border-slate-800 bg-slate-900/80 px-4 py-3.5 text-sm text-white outline-none transition placeholder:text-slate-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 disabled:cursor-not-allowed disabled:opacity-60"
+          className="w-full rounded-2xl border border-[#C3E0E6] bg-[#F3F7F9] px-4 py-3.5 text-sm text-[#194B64] outline-none transition placeholder:text-[#8EACB4] focus:border-[#13B4CE] focus:ring-2 focus:ring-[#13B4CE]/20 disabled:cursor-not-allowed disabled:opacity-60"
           disabled={loading}
           required
         />
         <button
           type="submit"
           disabled={loading}
-          className="inline-flex w-full items-center justify-center rounded-2xl bg-white px-4 py-3.5 text-sm font-semibold text-slate-950 transition hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-white/40 disabled:cursor-not-allowed disabled:opacity-60"
+          className="inline-flex w-full items-center justify-center rounded-2xl bg-[#13B4CE] px-4 py-3.5 text-sm font-semibold text-white transition hover:bg-[#0ea3bb] focus:outline-none focus:ring-2 focus:ring-[#13B4CE]/30 disabled:cursor-not-allowed disabled:opacity-60"
         >
           {loading ? "Autenticando..." : "Ingresar"}
         </button>
         {error && (
-          <div className="rounded-2xl border border-rose-500/30 bg-rose-500/10 px-4 py-3 text-sm text-rose-200" role="alert" aria-live="polite">
+          <div className="rounded-2xl border border-rose-300 bg-rose-50 px-4 py-3 text-sm text-rose-700" role="alert" aria-live="polite">
             {error}
           </div>
         )}

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence, useMotionValue, useMotionTemplate } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 
 interface UsuarioData {
   idUsuario: number;
@@ -136,6 +137,9 @@ export default function DashboardPage() {
                 <p className="text-sm font-semibold">{user?.nombreCompleto}</p>
                 <p className="text-xs font-medium text-[#5D7E88]">{user?.rol} • {user?.departamento}</p>
               </div>
+              <Link href="/dashboard/perfil" className="inline-flex items-center justify-center rounded-xl border border-[#C3E0E6] bg-white px-5 py-2.5 text-sm font-semibold text-[#194B64] shadow-sm transition hover:bg-[#F3F7F9] hover:border-[#13B4CE] focus:outline-none focus:ring-2 focus:ring-[#13B4CE]/30">
+                Mi Perfil
+              </Link>
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}

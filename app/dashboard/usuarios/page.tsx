@@ -22,6 +22,7 @@ export default function UsuariosPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
+  const [detalleUsuario, setDetalleUsuario] = useState<UsuarioData | null>(null);
   const [isRegistering, setIsRegistering] = useState(false);
   const router = useRouter();
 
@@ -203,39 +204,30 @@ export default function UsuariosPage() {
             className="rounded-3xl border border-[#C3E0E6] bg-white p-6 shadow-xl shadow-slate-200/60 lg:p-8"
           >
             <div className="overflow-x-auto">
-              <table className="w-full text-left border-collapse min-w-[800px]">
+              <table className="w-full text-left border-collapse min-w-[520px]">
                 <thead>
                   <tr className="border-b-2 border-[#C3E0E6] text-xs font-bold uppercase tracking-wider text-[#8EACB4]">
-                    <th className="pb-4 pl-2">ID</th>
                     <th className="pb-4">Nombre Completo</th>
-                    <th className="pb-4">Correo Corporativo</th>
-                    <th className="pb-4">Departamento</th>
-                    <th className="pb-4 text-center">Rol</th>
-                    <th className="pb-4 text-center">Estatus</th>
+                    <th className="pb-4 text-right">Acciones</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100 text-sm">
                   {usuarios.map((u) => (
                     <tr key={u.idUsuario} className="group hover:bg-slate-50/80 transition-colors">
-                      <td className="py-4 pl-2 font-mono text-xs text-[#8EACB4] transition-colors group-hover:text-[#194B64]">{u.idUsuario}</td>
                       <td className="py-4 font-semibold text-[#194B64]">{u.nombreCompleto}</td>
-                      <td className="py-4 text-[#5D7E88]">{u.emailCorporativo}</td>
-                      <td className="py-4 text-[#5D7E88]">{u.departamento || "N/A"}</td>
-                      <td className="py-4 text-center">
-                        <span className={`inline-flex items-center rounded-md px-2.5 py-1 text-xs font-semibold ring-1 ring-inset ${
-                          u.rol === "Administrador" ? "bg-purple-50 text-purple-700 ring-purple-700/20" : u.rol === "Auditor" ? "bg-amber-50 text-amber-700 ring-amber-700/20" : "bg-blue-50 text-blue-700 ring-blue-700/20"
-                        }`}>{u.rol}</span>
-                      </td>
-                      <td className="py-4 text-center">
-                        <span className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-bold ${u.estatus ? "bg-green-100 text-green-800" : "bg-rose-100 text-rose-800"}`}>
-                          {u.estatus ? "Activo" : "Inactivo"}
-                        </span>
+                      <td className="py-4 text-right">
+                        <button
+                          onClick={() => setDetalleUsuario(u)}
+                          className="inline-flex items-center gap-2 rounded-xl border border-[#C3E0E6] bg-white px-4 py-2 text-sm font-semibold text-[#194B64] transition-colors hover:border-[#13B4CE] hover:text-[#13B4CE]"
+                        >
+                          Ver detalles
+                        </button>
                       </td>
                     </tr>
                   ))}
                   {usuarios.length === 0 && (
                     <tr>
-                      <td colSpan={6} className="py-10 text-center text-sm text-[#8EACB4]">No se encontraron registros de usuarios.</td>
+                      <td colSpan={2} className="py-10 text-center text-sm text-[#8EACB4]">No se encontraron registros de usuarios.</td>
                     </tr>
                   )}
                 </tbody>
@@ -244,6 +236,83 @@ export default function UsuariosPage() {
           </motion.section>
         </main>
       </div>
+
+      {/* Modal de detalles */}
+      <AnimatePresence>
+        {detalleUsuario && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setDetalleUsuario(null)}
+              className="fixed inset-0 z-50 bg-[#194B64]/40 backdrop-blur-sm"
+            />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              transition={{ type: "spring", bounce: 0, duration: 0.35 }}
+              className="fixed left-1/2 top-1/2 z-50 w-[calc(100%-2rem)] max-w-lg -translate-x-1/2 -translate-y-1/2 rounded-3xl border border-[#C3E0E6] bg-white p-6 shadow-2xl sm:p-8"
+            >
+              <div className="mb-6 flex items-start justify-between gap-4">
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#8EACB4]">Detalles del usuario</p>
+                  <h2 className="mt-2 text-2xl font-bold tracking-tight text-[#194B64]">{detalleUsuario.nombreCompleto}</h2>
+                </div>
+                <button
+                  onClick={() => setDetalleUsuario(null)}
+                  className="rounded-lg p-2 text-[#8EACB4] transition-colors hover:bg-slate-100 hover:text-[#194B64]"
+                >
+                  <svg viewBox="0 0 24 24" fill="none" className="h-6 w-6" aria-hidden="true">
+                    <path d="M6 18L18 6M6 6l12 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </button>
+              </div>
+
+              <div className="grid gap-4 sm:grid-cols-2">
+                <div className="rounded-2xl bg-[#F3F7F9] p-4">
+                  <p className="text-xs font-semibold uppercase tracking-wider text-[#8EACB4]">Correo corporativo</p>
+                  <p className="mt-2 break-words text-sm font-medium text-[#194B64]">{detalleUsuario.emailCorporativo}</p>
+                </div>
+                <div className="rounded-2xl bg-[#F3F7F9] p-4">
+                  <p className="text-xs font-semibold uppercase tracking-wider text-[#8EACB4]">Departamento</p>
+                  <p className="mt-2 text-sm font-medium text-[#194B64]">{detalleUsuario.departamento || "N/A"}</p>
+                </div>
+                <div className="rounded-2xl bg-[#F3F7F9] p-4">
+                  <p className="text-xs font-semibold uppercase tracking-wider text-[#8EACB4]">Rol</p>
+                  <p className="mt-2 text-sm font-medium text-[#194B64]">{detalleUsuario.rol}</p>
+                </div>
+                <div className="rounded-2xl bg-[#F3F7F9] p-4">
+                  <p className="text-xs font-semibold uppercase tracking-wider text-[#8EACB4]">Estatus</p>
+                  <p className={`mt-2 inline-flex rounded-full px-3 py-1 text-xs font-bold ${detalleUsuario.estatus ? "bg-green-100 text-green-800" : "bg-rose-100 text-rose-800"}`}>
+                    {detalleUsuario.estatus ? "Activo" : "Inactivo"}
+                  </p>
+                </div>
+                <div className="rounded-2xl bg-[#F3F7F9] p-4 sm:col-span-2">
+                  <p className="text-xs font-semibold uppercase tracking-wider text-[#8EACB4]">Fecha de registro</p>
+                  <p className="mt-2 text-sm font-medium text-[#194B64]">
+                    {detalleUsuario.fechaRegistro ? new Date(detalleUsuario.fechaRegistro).toLocaleDateString("es-MX", {
+                      day: "2-digit",
+                      month: "long",
+                      year: "numeric",
+                    }) : "N/A"}
+                  </p>
+                </div>
+              </div>
+
+              <div className="mt-8 flex justify-end">
+                <button
+                  onClick={() => setDetalleUsuario(null)}
+                  className="rounded-xl bg-[#194B64] px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#0f3b51]"
+                >
+                  Cerrar
+                </button>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
 
       {/* Modal de Registro */}
       <AnimatePresence>

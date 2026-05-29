@@ -79,7 +79,12 @@ export default function Home() {
     <main className="min-h-screen bg-[#F3F7F9] text-[#194B64]">
       <div className="pointer-events-none fixed inset-0 bg-[radial-gradient(circle_at_top,_rgba(19,180,206,0.14),_transparent_28%),linear-gradient(135deg,rgba(25,75,100,0.04)_0%,transparent_38%,rgba(19,180,206,0.05)_100%)]" />
       <section className="relative mx-auto flex min-h-screen w-full max-w-7xl flex-col gap-12 px-6 py-8 lg:px-10 xl:py-12">
-        <header className="flex items-center justify-between rounded-3xl border border-[#C3E0E6] bg-white/80 px-5 py-4 shadow-sm shadow-slate-200/50 backdrop-blur">
+        <motion.header 
+          initial={{ opacity: 1, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="flex items-center justify-between rounded-3xl border border-[#C3E0E6] bg-white/80 px-5 py-4 shadow-sm shadow-slate-200/50 backdrop-blur"
+        >
           <div className="flex items-center gap-4">
             <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-[#C3E0E6] bg-[#F3F7F9] shadow-sm">
               <Image src="/sources/logo.png" alt="Logo EVALUMA" width={42} height={42} priority />
@@ -95,13 +100,13 @@ export default function Home() {
           >
             Acceder
           </Link>
-        </header>
+        </motion.header>
 
         <div className="flex flex-col gap-10">
           <motion.div
-            initial={{ opacity: 1, y: 10 }}
+            initial={{ opacity: 1, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, ease: "easeOut" }}
+            transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
             className="max-w-3xl"
           >
             <div className="inline-flex items-center gap-2 rounded-full border border-[#C3E0E6] bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.25em] text-[#8EACB4] shadow-sm">
@@ -147,10 +152,10 @@ export default function Home() {
             {features.map((feature, index) => (
               <motion.article
                 key={feature.title}
-                initial={{ opacity: 1, y: 12 }}
+                initial={{ opacity: 1, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true, margin: "-60px" }}
+                viewport={{ once: true, amount: 0.1 }}
                 className="group rounded-2xl border border-[#C3E0E6] bg-white p-6 shadow-xl shadow-slate-200/60 transition hover:border-[#13B4CE]"
               >
                 <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl bg-[#C3E0E6]/60 ring-1 ring-inset ring-[#13B4CE]/40">
@@ -162,7 +167,13 @@ export default function Home() {
             ))}
           </section>
 
-          <section className="grid gap-4 rounded-3xl border border-[#C3E0E6] bg-white p-6 shadow-xl shadow-slate-200/60 lg:grid-cols-[1.2fr_0.8fr]">
+          <motion.section 
+            initial={{ opacity: 1, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true, amount: 0.1 }}
+            className="grid gap-4 rounded-3xl border border-[#C3E0E6] bg-white p-6 shadow-xl shadow-slate-200/60 lg:grid-cols-[1.2fr_0.8fr]"
+          >
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#8EACB4]">Contexto del proyecto</p>
               <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[#194B64]">Problema, justificación y alcance</h2>
@@ -177,9 +188,15 @@ export default function Home() {
                 </div>
               ))}
             </div>
-          </section>
+          </motion.section>
 
-          <section className="grid gap-4 lg:grid-cols-2">
+          <motion.section 
+            initial={{ opacity: 1, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true, amount: 0.1 }}
+            className="grid gap-4 lg:grid-cols-2"
+          >
             <div className="rounded-3xl border border-[#C3E0E6] bg-white p-6 shadow-xl shadow-slate-200/60">
               <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#8EACB4]">Objetivos específicos</p>
               <ul className="mt-4 space-y-3 text-sm leading-7 text-slate-300">
@@ -207,7 +224,7 @@ export default function Home() {
                 ))}
               </div>
             </div>
-          </section>
+          </motion.section>
         </div>
       </section>
     </main>
